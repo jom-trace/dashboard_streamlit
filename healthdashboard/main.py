@@ -23,7 +23,7 @@ def fetch(session, url):
     except Exception:
         return {}
 
-xdata = fetch(session, f"http://127.0.0.1:5000/getPatients")
+xdata = fetch(session, f"https://jom-trace-backend.herokuapp.com/getPatients")
 user_id = []
 final_data=[]
 unknown_data = []
@@ -330,7 +330,7 @@ def cs_body():
                 st.write(output_df)
                 st.button('Send Warning')
                 if st.button:
-                    url = 'http://127.0.0.1:5000/pushExposure'
+                    url = 'https://jom-trace-backend.herokuapp.com/pushExposure'
                     myobj = {'closeContact': token_cont, 'messageTitle': 'Warning Message', 'messageBody': 'Stay Safe'}
                     headers = {
                     'Content-Type': 'application/json'
@@ -361,15 +361,10 @@ def cs_body():
 
 
 header = st.container()
-dataset = st.container()
 
-page = st.sidebar.selectbox("Choose your page", ["Main Page", "One-Mode", "Two Mode"]) 
-
-if page == "Main Page":
-  
-    with header:
-        st.title('Health Authority Dashboard!')
-        st.text('This dashboard is for the usage of Health Authorities.')
+with header:
+    st.title('Health Authority Dashboard!')
+    st.text('This dashboard is for the usage of Health Authorities.')
     cs_body()
 
 
