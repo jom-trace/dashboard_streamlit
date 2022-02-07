@@ -269,8 +269,8 @@ def cs_body():
                 output_df = pd.DataFrame({'People Close Contact' : [warn],
                                 'Not Close Contact' : [no_warn]}, columns = ['People Close Contact', 'Not Close Contact'])
                 st.write(output_df)
-                st.button('Send Warning')
-                if st.button:
+                send = st.button('Send Warning')
+                if send:
                     url = 'https://jom-trace-backend.herokuapp.com/pushExposure'
                     myobj = {'closeContact': token_cont, 'messageTitle': 'Warning Message', 'messageBody': 'Stay Safe'}
                     headers = {
