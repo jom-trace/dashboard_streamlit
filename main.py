@@ -38,7 +38,6 @@ for i in range(len(xdata)):
     read_token.append([user,token])
     for x in range(len(xdata[i]["closeContact"])):
         cc = (xdata[i]["closeContact"][x]["_uuid"])
-        #location = (xdata[i]["locationVisited"][x]["locationName"])
         date = (xdata[i]["closeContact"][x]["date"])     
         final_data.append([user,cc,date])
     
@@ -53,19 +52,6 @@ for i in range (len(final_data)):
     final_data[i][2]=formatted_date
 
 
-# for i in range(len(user_id)):
-#     for y in range(len(final_data)):
-#         found = False
-#         if (user_id[i][0]==final_data[y][1]):
-#             if(found==True):
-#                 found=True
-#                 temp = user_id[i][1]
-#                 final_data[y][1]=temp
-    
-#     temp="Unknown"
-#     final_data[i][1]=temp
-
-
 count=1
 i = 0
 
@@ -77,9 +63,9 @@ while i < len(final_data):
                final_data[i][1]=temp
                found=True
     if(found==False):
-        #temp=("Unknown " + str(count))
+        temp=("Unknown " + str(count))
         count=count+1
-        #final_data[i][1]=temp
+        final_data[i][1]=temp
         unknown_data.append(final_data[i])
         final_data.pop(i)
     else:
@@ -90,7 +76,6 @@ i = 0
 while i < len(final_data):
      x = 0
      while x < len(final_data):
-        print(x)
         if(final_data[i][0]==final_data[x][1]):
             if(final_data[i][1]==final_data[x][0]):
                if(final_data[i][2]==final_data[x][2]):   
@@ -114,61 +99,18 @@ while i < len(location):
         location.pop(i)
     else:
         i += 1
-            
-
-
-
-# while i < len(location):
-#      x = 0
-#      while x < len(unknown_data):
-#         print(x)
-#         if(location[i][0] == unknown_data[x][0]):
-#             location.pop(x)
-#             break
-#         x+=1
-#      i+=1
-
-
-
-
-# for i in range (len(final_data)):   
-#    for x in range(len(collected_data)):
-#        if(final_data[i][0]!=collected_data[x][1]):
-#             if(final_data[i][1]!=collected_data[x][0]):
-
-# final_data.pop(2)
-
-# for i in range(len(user)):
-#    for x in range(len(cc)):
-#        for y in range(len(location)):
-#            for z in range(len(date)):
-#               if(cc[x][1]==user[i][0]):
-#                  if(user[i][0]==location[y][0]):
-#                     if(user[i][0]==date[z][0]):
-#                         final_data.append([user[i][1],cc[x][0],location[y][1],date[z][1]])
-
-# for i in range(len(user)):
-#    for x in range(len(cc)):
-#        for y in range(len(location)):
-#            for z in range(len(date)):
-#               if(cc[x][1]==user[i][0]):
-#                  if(user[i][0]==location[y][0]):
-#                     if(user[i][0]==date[z][0]):
-#                         final_data2.append([cc[x][0],user[i][1],location[y][1],date[z][1]])
+        
 
 def cs_body():
     col1, col2 = st.columns(2)
     col1.title('One Mode Analysis')
     col2.title('Two Mode Analysis')
-
-    st.write(unknown_data)
-    st.write(final_data)
     
-    data = pd.DataFrame(final_data, columns=("From","To","Date"))
-    data2= data.drop(['Date'], axis = 1)
+    data2 = pd.DataFrame(final_data, columns=("From","To","Date"))
+    data = data2.drop(['Date'], axis = 1)
     with col1:
         st.subheader("Social Network Graph")
-        graph = nx.from_pandas_edgelist(data2,source="From", target="To")
+        graph = nx.from_pandas_edgelist(data,source="From", target="To")
         fig = nx.draw_kamada_kawai(graph, with_labels=True)
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.pyplot()
@@ -177,21 +119,20 @@ def cs_body():
         st.text("")
         st.text("")
         st.subheader("Apriori Analysis")
+        total_rows = data.shape[0]
         data_list = []
-        for i in range (0,5):
-            data_list.append([str(data2.values[i,j]) for j in range(0,2)])
-        association_rules = apriori(data_list, min_support=0.003, min_confidence=0.7, min_lift=1.3, min_length=2)
+        for i in range (0,total_rows):
+            data_list.append([str(data.values[i,j]) for j in range(0,2)])
+        association_rules = apriori(data_list, min_support=0.003, min_confidence=0.1, min_lift=1.3, min_length=2)
         association_results = list(association_rules)
 
         def inspect(association_results):
             lhs         = [tuple(result[2][0][0])[0] for result in association_results]
             rhs         = [tuple(result[2][0][1])[0] for result in association_results]
             support    = [result[1] for result in association_results]
-            confidence = [result[2][0][2] for result in association_results]
-            lift       = [result[2][0][3] for result in association_results]
-            return list(zip(lhs, rhs, support, confidence, lift))
+            return list(zip(lhs, rhs, support))
 
-        output_DataFrame = pd.DataFrame(inspect(association_results), columns = ['Left_Hand_Side', 'Right_Hand_Side', 'Support', 'Confidence', 'Lift'])
+        output_DataFrame = pd.DataFrame(inspect(association_results), columns = ['Left_Hand_Side', 'Right_Hand_Side', 'Support'])
         st.write(output_DataFrame)
         #################################################################################################################################################
         st.text("")
@@ -201,8 +142,8 @@ def cs_body():
         st.subheader("Clustering in One Mode Analysis")
         st.write("Scatter Plot before Clustering")
         
-        country_map = {country:i for i, country in enumerate(data2.stack().unique())}
-        new_data=data2.copy()
+        country_map = {country:i for i, country in enumerate(data.stack().unique())}
+        new_data=data.copy()
 
         new_data['From'] = new_data['From'].map(country_map)    
         new_data['To'] = new_data['To'].map(country_map)
