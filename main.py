@@ -333,9 +333,9 @@ def cs_body():
         bt = nx.betweenness_centrality(Gw,normalized = True,weight='weight')
         bt = Counter(nx.betweenness_centrality(Gw,normalized=True,weight='weight'))
         for u,q in bt.most_common(10):
-           bc.append('%s:%f' % (u,q))
+           bc.append(['%s' % (u),'%f' % (q)])
         
-        out_bc = pd.DataFrame(bc, columns = ['Betweenness Centrality'])
+        out_bc = pd.DataFrame(bc, columns = ['Name','Betweenness Centrality'])
         st.write(out_bc)
         #################################################################################################################################################
         st.text("")
