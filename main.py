@@ -143,36 +143,58 @@ def cs_body():
         st.text("")
         
         st.subheader("Clustering in One Mode Analysis")
-        st.write("Scatter Plot before Clustering")
         
         country_map = {country:i for i, country in enumerate(data.stack().unique())}
         new_data=data.copy()
 
         new_data['From'] = new_data['From'].map(country_map)    
         new_data['To'] = new_data['To'].map(country_map)
-        plt.scatter(new_data["From"],new_data["To"])
-        st.pyplot()
 
         st.write("Scatter Plot after Clustering")
-        kmeans = KMeans(n_clusters=2)
+        k_list = [2,3,4]
+        k_value = st.selectbox("Select Your K-Value" , k_list)       
+        kmeans = KMeans(n_clusters=k_value)
         x_scaled = preprocessing.scale(new_data)
         y_predicted=kmeans.fit_predict(x_scaled)
 
         new_data2=pd.DataFrame(x_scaled, columns=list('xy'))
         new_data2['cluster'] = y_predicted
-        df1 = new_data2[new_data2.cluster==0]
-        df2 = new_data2[new_data2.cluster==1]
-        df3 = new_data2[new_data2.cluster==2]
+        
+        def create_cluster (k_value,new_data2):
+            if (k_value==2):
+                df1 = new_data2[new_data2.cluster==0]
+                df2 = new_data2[new_data2.cluster==1]
+                plt.scatter(df1.x,df1["y"],color='green')
+                plt.scatter(df2.x,df2["y"],color='red')
 
-        plt.scatter(df1.x,df1["y"],color='green')
-        plt.scatter(df2.x,df2["y"],color='red')
-        plt.scatter(df3.x,df3["y"],color='black')
-        plt.scatter(kmeans.cluster_centers_[:,0],kmeans.cluster_centers_[:,1],color='purple',marker='*',label='centroid')
+            elif (k_value==3):
+                df1 = new_data2[new_data2.cluster==0]
+                df2 = new_data2[new_data2.cluster==1]
+                df3 = new_data2[new_data2.cluster==2]
+                plt.scatter(df1.x,df1["y"],color='green')
+                plt.scatter(df2.x,df2["y"],color='red')
+                plt.scatter(df3.x,df3["y"],color='black')
 
-        plt.xlabel('From')
-        plt.ylabel('To')
-        plt.legend()
-        st.pyplot()
+            elif (k_value==4) :
+                df1 = new_data2[new_data2.cluster==0]
+                df2 = new_data2[new_data2.cluster==1]
+                df3 = new_data2[new_data2.cluster==2]
+                df4 = new_data2[new_data2.cluster==3]
+                plt.scatter(df1.x,df1["y"],color='green') 
+                plt.scatter(df2.x,df2["y"],color='red')
+                plt.scatter(df3.x,df3["y"],color='black')
+                plt.scatter(df4.x,df4["y"],color='yellow')
+            
+            plt.scatter(kmeans.cluster_centers_[:,0],kmeans.cluster_centers_[:,1],color='purple',marker='*',label='centroid')
+
+            plt.xlabel('From')
+            plt.ylabel('To')
+            plt.legend()
+            st.pyplot()
+
+
+        create_cluster(k_value,new_data2)
+
         #################################################################################################################################################
      
 
