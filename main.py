@@ -1,5 +1,8 @@
 #from email import header
+from cProfile import label
 import json
+from shutil import which
+#from matplotlib.lines import _LineStyle
 import numpy as np
 from pkg_resources import UnknownExtra
 import streamlit as st
@@ -296,8 +299,42 @@ def cs_body():
 
             people_in_place(user_input2)
         #################################################################################################################################################
+        st.text("")
+        st.text("")
+        st.text("")
+        bc = []
+        st.subheader("Highest Betweenness Centrality")
+        from collections import Counter
+        Gs = bipartite.projected_graph(B,people1)
+        Gm = bipartite.projected_graph(B,people1,'Multigraph')
+        Gw = bipartite.weighted_projected_graph(B,people1)
+        bt = nx.betweenness_centrality(Gw,normalized = True,weight='weight')
+        bt = Counter(nx.betweenness_centrality(Gw,normalized=True,weight='weight'))
+        for u,q in bt.most_common(10):
+           bc.append('%s:%f' % (u,q))
+        
+        out_bc = pd.DataFrame(bc, columns = ['Betweenness Centrality'])
+        st.write(out_bc)
+        #################################################################################################################################################
+        st.text("")
+        st.text("")
+        st.text("")
+        st.subheader("Distribution of Popularity and Strength")
+        pop_distr = Counter(sorted(dict(Gs.degree()).values()))
+        str_distr = Counter(sorted(dict(Gm.degree()).values()))
 
-
+        def plot_proj(pop_dist,str_dist):
+            fig, ax = plt.subplots()
+            ax.plot(list(pop_dist.keys()),list(pop_dist.values()),'bo', linestyle = '-', label='Popularity')
+            ax.plot(list(str_dist.keys()),list(str_dist.values()),'ro',linestyle = '-', label='Strength')
+            ax.set_xlabel('Degree')
+            ax.set_ylabel('Frequency')
+            ax.tick_params(axis='both',which='major')
+            ax.legend(loc='upper right',ncol=1,frameon=True)
+            plt.tight_layout()
+            plt.show()
+            st.pyplot()
+        plot_proj(pop_distr,str_distr)
 
 
 header = st.container()
