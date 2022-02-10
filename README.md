@@ -9,4 +9,7 @@
 <h4> One Mode Analysis <h4>
  
 <h5> One Mode Graph <h5>
-<img src= "">
+<img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/One%20Mode%20Graph.png" width = "500px">
+
+<h5> Apriori Analysis <h5>
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/One%20Mode%20Graph.png" width = "500px">
