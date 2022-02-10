@@ -42,7 +42,21 @@
  <p>  Using this feature user can find a particular person's close contacts and also warn them. <p>
   <br>
 
-<h5> K-Means Clustering <h5>
+<h5> Searching for Number of People Visited a Place. <h5>
  <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture2.PNG" width = "500px">
   
  <p> Using this feature user will be able to search the number of people visited a particular location. <p>
+  
+   <br>
+
+<h5> Betwenness Centrality <h5>
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture3.PNG" width = "500px">
+  
+ <p> Shows the betwenness centrality of each nodes from the highest to lowest.<p>
+  
+   <br>
+
+<h5> Distribution of Popularity and Strength <h5>
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture4.PNG" width = "500px">
+  
+ <p> Shows the Distribution of Popularity and Strength.<p>
