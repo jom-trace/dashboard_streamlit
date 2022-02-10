@@ -6,7 +6,7 @@
 
 <h3> Health dashboard is created to analyse by the health authority. <h3>
   
-<h4> One Mode Analysis <h4>
+<h4> One Mode Analysis </h4>
  
 <h5> One Mode Graph <h5>
 <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/One%20Mode%20Graph.png" width = "500px">
@@ -28,7 +28,7 @@
   
   <br>
   <br>
-  <h4> Two Mode Analysis <h4>
+  <h4> Two Mode Analysis </h4>
  
 <h5> Two Mode Graph <h5>
 <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture.PNG" width = "500px">
