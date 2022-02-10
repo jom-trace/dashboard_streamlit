@@ -31,18 +31,18 @@
   <h4> Two Mode Analysis <h4>
  
 <h5> Two Mode Graph <h5>
-<img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/capture.png" width = "500px">
+<img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture.PNG" width = "500px">
   
 <p> The two mode analysis will create two-mode graph where it shows edges between nodes. From there, we can analyse how the people are connected visually. It will also show connection between people and location visited as well. <p>
   <br>
 
 <h5> Searching Close Contact People Function <h5>
- <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/capture1.png" width = "500px">
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture1.PNG" width = "500px">
   
  <p>  Using this feature user can find a particular person's close contacts and also warn them. <p>
   <br>
 
 <h5> K-Means Clustering <h5>
- <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/capture2.png" width = "500px">
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Capture2.PNG" width = "500px">
   
  <p> Using this feature user will be able to search the number of people visited a particular location. <p>
