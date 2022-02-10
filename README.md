@@ -12,4 +12,8 @@
 <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/One%20Mode%20Graph.png" width = "500px">
 
 <h5> Apriori Analysis <h5>
- <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/One%20Mode%20Graph.png" width = "500px">
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Apriori%20Analysis.png" width = "500px">
+
+
+<h5> K-Means Clustering <h5>
+ <img src= "https://github.com/jom-trace/dashboard_streamlit/blob/main/Images/Apriori%20Analysis.png" width = "500px">
